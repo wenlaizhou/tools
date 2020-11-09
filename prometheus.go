@@ -32,6 +32,7 @@ func PromQuery(service string, express string) (PromResult, error) {
 	return result, err
 }
 
+//istio_requests_total{destination_service=~"reg-extraction.*"}
 func PromQueryRange(service string, express string, step string, begin time.Time, end time.Time) (PromResult, error) {
 	result := PromResult{}
 	beginStr := begin.Format("2006-01-02T15:04:05.000Z") //time.RFC3339)
