@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/wenlaizhou/middleware"
 	"regexp"
+	"strconv"
 	"time"
 )
 
@@ -41,6 +42,14 @@ func RawToStr(val json.RawMessage) string {
 		return res
 	}
 	return res[1 : len(res)-1]
+}
+
+func RawToTime(val json.RawMessage) (time.Time, error) {
+	res, err := strconv.ParseInt(RawToStr(val), 10, 0)
+	if err != nil {
+		return time.Time{}, err
+	}
+	return time.Unix(res, 0), nil
 }
 
 func PromQuery(service string, express string) (PromResult, error) {
