@@ -14,7 +14,7 @@ type PromResult struct {
 		ResultType string `json:"resultType"`
 		Result     []struct {
 			Metric map[string]string `json:"metric"`
-			Value  []json.RawMessage `json:"value"`
+			Value  []json.RawMessage `json:"value"` // 第一个值为时间戳 time.Unix(int64(math.Round(Value[0])), 0) 即可转换为时间
 		} `json:"result"`
 	} `json:"data"`
 }
