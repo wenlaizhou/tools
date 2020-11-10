@@ -14,7 +14,7 @@ type PromResult struct {
 		ResultType string `json:"resultType"`
 		Result     []struct {
 			Metric map[string]string `json:"metric"`
-			Value  []string          `json:"value"`
+			Value  []json.RawMessage `json:"value"`
 		} `json:"result"`
 	} `json:"data"`
 }
