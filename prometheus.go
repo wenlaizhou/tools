@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/wenlaizhou/middleware"
+	"regexp"
 	"time"
 )
 
@@ -28,6 +29,18 @@ type PromRangeResult struct {
 			Values [][]json.RawMessage `json:"values"` // 第一个值为时间戳 time.Unix(int64(math.Round(Value[0])), 0) 即可转换为时间
 		} `json:"result"`
 	} `json:"data"`
+}
+
+func RawToStr(val json.RawMessage) string {
+	if val == nil || len(val) <= 0 {
+		return ""
+	}
+	res := string(val)
+	checker := regexp.MustCompile(`^"(.*?)"&`)
+	if !checker.MatchString(res) {
+		return res
+	}
+	return res[1 : len(res)-2]
 }
 
 func PromQuery(service string, express string) (PromResult, error) {
