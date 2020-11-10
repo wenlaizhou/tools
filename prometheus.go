@@ -40,7 +40,7 @@ func RawToStr(val json.RawMessage) string {
 	if !checker.MatchString(res) {
 		return res
 	}
-	return res[1 : len(res)-2]
+	return res[1 : len(res)-1]
 }
 
 func PromQuery(service string, express string) (PromResult, error) {
