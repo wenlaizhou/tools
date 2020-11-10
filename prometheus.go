@@ -24,8 +24,8 @@ type PromRangeResult struct {
 	Data   struct {
 		ResultType string `json:"resultType"`
 		Result     []struct {
-			Metric map[string]string `json:"metric"`
-			Values []json.RawMessage `json:"values"` // 第一个值为时间戳 time.Unix(int64(math.Round(Value[0])), 0) 即可转换为时间
+			Metric map[string]string   `json:"metric"`
+			Values [][]json.RawMessage `json:"values"` // 第一个值为时间戳 time.Unix(int64(math.Round(Value[0])), 0) 即可转换为时间
 		} `json:"result"`
 	} `json:"data"`
 }
