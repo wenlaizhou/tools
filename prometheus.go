@@ -53,6 +53,14 @@ func PromRawToTime(val json.RawMessage) (time.Time, error) {
 	return time.Unix(int64(math.Round(res)), 0), nil
 }
 
+func RawToInt(val json.RawMessage) (int64, error) {
+	res := RawToStr(val)
+	if len(res) <= 0 {
+		return -1, errors.New("数据为空")
+	}
+	return strconv.ParseInt(res, 10, 0)
+}
+
 func PromQuery(service string, express string) (PromResult, error) {
 	result := PromResult{}
 	code, _, body, err := middleware.Get(fmt.Sprintf(`%s/api/v1/query?query=%s`, service, express))
@@ -67,6 +75,11 @@ func PromQuery(service string, express string) (PromResult, error) {
 }
 
 //istio_requests_total{destination_service=~"reg-extraction.*"}
+// 标签查询:
+// =  : 精确地匹配标签给定的值
+// != : 不等于给定的标签值
+// =~ : 正则表达匹配给定的标签值
+// !~ : 给定的标签值不符合正则表达式
 func PromQueryRange(service string, express string, step string, begin time.Time, end time.Time) (PromRangeResult, error) {
 	result := PromRangeResult{}
 	beginStr := begin.Format("2006-01-02T15:04:05.000Z") //time.RFC3339)
