@@ -37,7 +37,7 @@ func PromQueryRange(service string, express string, step string, begin time.Time
 	result := PromResult{}
 	beginStr := begin.Format("2006-01-02T15:04:05.000Z") //time.RFC3339)
 	endStr := end.Format("2006-01-02T15:04:05.000Z")
-	queryUrl := fmt.Sprintf("%s/api/v1/query_range?query=%s&start=%s&end=%s&step=%s", service, beginStr, endStr, step)
+	queryUrl := fmt.Sprintf("%s/api/v1/query_range?query=%s&start=%s&end=%s&step=%s", service, express, beginStr, endStr, step)
 	code, _, body, err := middleware.Get(queryUrl)
 	if err != nil {
 		return result, err
