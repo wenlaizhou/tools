@@ -36,7 +36,7 @@ func RawToStr(val json.RawMessage) string {
 		return ""
 	}
 	res := string(val)
-	checker := regexp.MustCompile(`^"(.*?)"&`)
+	checker := regexp.MustCompile(`^"(.*?)"$`)
 	if !checker.MatchString(res) {
 		return res
 	}
