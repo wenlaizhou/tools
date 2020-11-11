@@ -53,12 +53,17 @@ func PromRawToTime(val json.RawMessage) (time.Time, error) {
 	return time.Unix(int64(math.Round(res)), 0), nil
 }
 
-func RawToInt(val json.RawMessage) (int64, error) {
+func RawToInt64(val json.RawMessage) (int64, error) {
 	res := RawToStr(val)
 	if len(res) <= 0 {
 		return -1, errors.New("数据为空")
 	}
 	return strconv.ParseInt(res, 10, 0)
+}
+
+func RawToInt(val json.RawMessage) (int, error) {
+	res, err := RawToInt64(val)
+	return int(res), err
 }
 
 func PromQuery(service string, express string) (PromResult, error) {
